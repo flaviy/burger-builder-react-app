@@ -114,10 +114,7 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
-              modules: true,
-              localIdentName: '[name]__[local]__[base:64:5]'
-              
+              eslintPath: require.resolve('eslint')
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -165,7 +162,9 @@ module.exports = {
               {
                 loader: require.resolve('css-loader'),
                 options: {
-                  importLoaders: 1,
+                    importLoaders: 1,
+                    modules: true,
+                    localIdentName: '[name]__[local]__[base:64:5]'
                 },
               },
               {
