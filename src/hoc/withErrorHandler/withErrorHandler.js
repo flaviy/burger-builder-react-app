@@ -5,6 +5,18 @@ import axios from '../../axios-orders'
 
 const withErrorHandler = (WrappedComponent) => {
   return class extends Component{
+    constructor(props){
+      super(props);
+      this.requestInterceptor = axios.interceptors.response.use(req => {
+        this.setState({ error: null });
+        return req;
+      })
+
+      this.responseInterceptor = axios.interceptors.response.use(res => res, error => {
+        this.setState({ error: error })
+      })
+    }
+
     state = {
       error: null,
     }
@@ -13,14 +25,12 @@ const withErrorHandler = (WrappedComponent) => {
     }
 
     componentDidMount () {
-      axios.interceptors.response.use(req => {
-        this.setState({ error: null });
-        return req;
-      })
 
-      axios.interceptors.response.use(res => res, error => {
-        this.setState({ error: error })
-      })
+    }
+
+    componentWillUnmount () {
+      axios.interceptors.response.eject(this.requestInterceptor);
+      axios.interceptors.response.eject(this.responseInterceptor);
     }
 
     render() {
