@@ -91,7 +91,6 @@ class BurgerBuilder extends Component {
       totalPrice: this.getPrice(updatedIngredients),
       purchasable: this.checkIfPurchasable(totalPrice),
     })
-    console.log(this.state)
   }
 
   removeIngredientHandler = (type) => {
@@ -111,7 +110,15 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinuedHandler = () => {
-    this.props.history.push('/checkout');
+    const queryParams = [];
+    for(let i in this.state.ingredients) {
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+    }
+    const queryString = queryParams.join('&');
+    this.props.history.push({
+      'pathname' : '/checkout',
+      'search' : '?' + queryString
+    });
     return;
     //alert('Lets continue');
     const order = {
