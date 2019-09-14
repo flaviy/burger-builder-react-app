@@ -10,11 +10,17 @@ class Checkout extends Component {
       cheese : 1
     }
   }
+  cancelHandler = () =>  {
+    this.props.history.goBack();
+  }
+  continueHandler = () => {
+    this.props.history.push('/add-address-data');
+  }
 
   render () {
     return(
       <div>
-          <CheckoutSummary ingredients={this.state.ingredients} />
+          <CheckoutSummary ingredients={this.state.ingredients} onContinue={this.continueHandler} onCancel={this.cancelHandler} />
       </div>
     )
   }
