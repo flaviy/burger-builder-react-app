@@ -21,12 +21,6 @@ class BurgerBuilder extends Component {
 
   constructor (props) {
     super(props)
-    const ingredients = {
-      salad: 2,
-      bacon: 2,
-      meat: 2,
-      cheese: 1,
-    }
     //const totalPrice = this.getPrice(ingredients)
     this.state = {
       ingredients: null,
@@ -64,8 +58,7 @@ class BurgerBuilder extends Component {
   }
 
   getPrice = (updatedIngredients) => {
-    const price = Object.keys(INGREDIENT_PRICES).
-      reduce((previousValue, currentValue) => {
+    const price = Object.keys(INGREDIENT_PRICES).reduce((previousValue, currentValue) => {
           return previousValue + updatedIngredients[currentValue] *
             INGREDIENT_PRICES[currentValue]
         }, BASE_PRICE,

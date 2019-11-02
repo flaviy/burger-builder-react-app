@@ -32,8 +32,7 @@ class ContactData extends Component {
         console.log(response)
         this.setState({ 'loading': false});
         this.props.history.push('/');
-      }).
-      catch((error) => {
+      }).catch((error) => {
         this.setState({ 'loading': false})
         console.log(error)
       })
