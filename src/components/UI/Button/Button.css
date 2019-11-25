@@ -23,3 +23,8 @@
 .Danger {
     color: #944317;
 }
+
+.Disabled {
+    cursor: default;
+    color: #ccc;
+}

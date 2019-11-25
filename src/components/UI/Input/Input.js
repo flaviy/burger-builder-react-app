@@ -1,29 +1,36 @@
-import React from 'react'
+import React from 'react';
 
-import classes from './Input.css'
+import classes from './Input.css';
 
-const input = (props) => {
-  let inputElement = null
+const input = ( props ) => {
+  let inputElement = null;
+  let validationError = null;
+  const inputClasses = [classes.InputElement];
 
-  switch (props.elementType) {
-    case ('input'):
+  if (props.invalid && props.shouldValidate && props.touched) {
+    inputClasses.push(classes.Invalid);
+    validationError = <p className={classes.ValidationError}>Please enter a valid {props.valueType}</p>;
+  }
+
+  switch ( props.elementType ) {
+    case ( 'input' ):
       inputElement = <input
-        className={classes.InputElement}
+        className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
-        onChange={props.changed}/>
-      break
-    case ('textarea'):
+        onChange={props.changed} />;
+      break;
+    case ( 'textarea' ):
       inputElement = <textarea
-        className={classes.InputElement}
+        className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
-        onChange={props.changed}/>
-      break
-    case ('select'):
+        onChange={props.changed} />;
+      break;
+    case ( 'select' ):
       inputElement = (
         <select
-          className={classes.InputElement}
+          className={inputClasses.join(' ')}
           value={props.value}
           onChange={props.changed}>
           {props.elementConfig.options.map(option => (
@@ -32,23 +39,24 @@ const input = (props) => {
             </option>
           ))}
         </select>
-      )
-      break
+      );
+      break;
     default:
       inputElement = <input
-        className={classes.InputElement}
+        className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
-        onChange={props.changed}/>
+        onChange={props.changed} />;
   }
 
   return (
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
       {inputElement}
+      {validationError}
     </div>
-  )
+  );
 
-}
+};
 
-export default input
+export default input;
